@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { getPopularMovies } from "~/server/services/tmdb";
 
 import { createTRPCRouter, publicProcedure } from "~/server/api/trpc";
 
@@ -37,4 +38,11 @@ export const postRouter = createTRPCRouter({
   getLatest: publicProcedure.query(() => {
     return posts.at(-1) ?? null;
   }),
+  
+  getPopularMovies: publicProcedure
+    .input(z.object({ page: z.number().optional() }))
+    .query(async ({ input }) => {
+      const movies = await getPopularMovies(input.page);
+      return movies;
+    }),
 });
