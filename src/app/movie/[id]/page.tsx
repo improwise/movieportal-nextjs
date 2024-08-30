@@ -1,13 +1,13 @@
-import { getMovieDetails } from "~/server/services/tmdb";
 import Image from "next/image";
 import Link from "next/link";
+import { api } from "~/trpc/server";
 
 export default async function MovieDetails({
   params,
 }: {
   params: { id: string };
 }) {
-  const movie = await getMovieDetails(parseInt(params.id));
+  const movie = await api.movie.getMovieDetails({ id: parseInt(params.id) });
 
   return (
     <div className="container mx-auto p-4">
