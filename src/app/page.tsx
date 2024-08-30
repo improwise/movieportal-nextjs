@@ -4,7 +4,7 @@ import Image from "next/image";
 import { api, HydrateClient } from "~/trpc/server";
 
 export default async function Home() {
-  const popularMovies = await api.post.getPopularMovies({ page: 1 });
+  const popularMovies = await api.movie.getPopularMovies({ page: 1 });
 
   return (
     <HydrateClient>
