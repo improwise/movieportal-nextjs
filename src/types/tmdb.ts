@@ -10,3 +10,7 @@ export interface Movie {
 export interface TMDBResponse {
   results: Movie[];
 }
+
+export interface MovieCardProps {
+  movie: Movie;
+}
