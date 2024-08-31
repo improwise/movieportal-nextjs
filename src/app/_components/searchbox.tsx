@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 
 interface SearchBoxProps {
   onSearch: (query: string) => void;
@@ -10,33 +10,69 @@ interface SearchBoxProps {
 export function SearchBox({ onSearch, initialQuery }: SearchBoxProps) {
   const [query, setQuery] = useState(initialQuery);
 
+  const debouncedSearch = useCallback(
+    (func: (query: string) => void, delay: number) => {
+      let timeoutId: NodeJS.Timeout;
+      return (query: string) => {
+        clearTimeout(timeoutId);
+        timeoutId = setTimeout(() => func(query), delay);
+      };
+    },
+    [],
+  );
+
+  const debouncedOnSearch = useCallback(debouncedSearch(onSearch, 300), [
+    onSearch,
+    debouncedSearch,
+  ]);
+
   useEffect(() => {
     setQuery(initialQuery);
   }, [initialQuery]);
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    onSearch(query);
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newQuery = e.target.value;
+    setQuery(newQuery);
+    debouncedOnSearch(newQuery);
+  };
+
+  const handleClear = () => {
+    setQuery("");
+    onSearch("");
   };
 
   return (
-    <form onSubmit={handleSubmit} className="w-full max-w-md">
-      <div className="flex items-center border-b border-b-2 border-white py-2">
-        <input
-          className="mr-3 w-full appearance-none bg-transparent px-2 py-1 leading-tight text-white focus:outline-none"
-          type="text"
-          placeholder="Search movies..."
-          aria-label="Search movies"
-          value={query}
-          onChange={(e) => setQuery(e.target.value)}
-        />
+    <div className="relative w-full max-w-4xl">
+      <input
+        className="w-full appearance-none rounded-lg bg-white bg-opacity-20 px-4 py-3 text-lg leading-tight text-white placeholder-white placeholder-opacity-70 focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-50"
+        type="text"
+        placeholder="Search movies..."
+        aria-label="Search movies"
+        value={query}
+        onChange={handleInputChange}
+      />
+      {query && (
         <button
-          className="flex-shrink-0 rounded border-4 border-white bg-white px-2 py-1 text-sm text-[#2e026d] hover:border-gray-200 hover:bg-gray-200"
-          type="submit"
+          onClick={handleClear}
+          className="absolute right-3 top-1/2 -translate-y-1/2 transform text-white opacity-70 hover:opacity-100 focus:outline-none"
+          aria-label="Clear search"
         >
-          Search
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="h-6 w-6"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M6 18L18 6M6 6l12 12"
+            />
+          </svg>
         </button>
-      </div>
-    </form>
+      )}
+    </div>
   );
 }
