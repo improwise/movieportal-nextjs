@@ -1,7 +1,6 @@
 import { env } from "~/env";
 import { type TMDBResponse, type Movie } from "~/types/tmdb";
 
-
 export async function getPopularMovies(page = 1): Promise<Movie[]> {
   const url = `https://api.themoviedb.org/3/movie/popular?api_key=${env.TMDB_API_KEY}&language=en-US&page=${page}`;
 
@@ -33,7 +32,7 @@ export async function getMovieDetails(movieId: number): Promise<Movie> {
     return data;
   } catch (error) {
     console.error(
-      "Error fetching movie details2:",
+      "Error fetching movie details:",
       error instanceof Error ? error.message : error,
     );
     throw error;
