@@ -1,29 +1,35 @@
-# Create T3 App
+# Movieportal NextJS
 
-This is a [T3 Stack](https://create.t3.gg/) project bootstrapped with `create-t3-app`.
+Movieportal NextJS is a NextJS web application for browsing and discovering movies.
 
-## What's next? How do I make an app with this?
+Demo available at: [movieportal-nextjs.improwise.com](https://movieportal-nextjs.improwise.com)
 
-We try to keep this project as simple as possible, so you can start with just the scaffolding we set up for you, and add additional things later when they become necessary.
+## Features
 
-If you are not familiar with the different technologies used in this project, please refer to the respective docs. If you still are in the wind, please join our [Discord](https://t3.gg/discord) and ask for help.
+- Browse popular movies
+- Search for movies by title
+- View detailed movie information
 
-- [Next.js](https://nextjs.org)
-- [NextAuth.js](https://next-auth.js.org)
-- [Prisma](https://prisma.io)
-- [Drizzle](https://orm.drizzle.team)
-- [Tailwind CSS](https://tailwindcss.com)
-- [tRPC](https://trpc.io)
+## Prerequisites
 
-## Learn More
+- Node.js (v14 or later)
+- npm (v6 or later)
+- NextJS (v18.0.1)
+- Tailwind CSS
+- tRPC
+- TMDB
 
-To learn more about the [T3 Stack](https://create.t3.gg/), take a look at the following resources:
+## Configuration
 
-- [Documentation](https://create.t3.gg/)
-- [Learn the T3 Stack](https://create.t3.gg/en/faq#what-learning-resources-are-currently-available) — Check out these awesome tutorials
+This project uses The Movie Database (TMDB) API. To run the application, you need to obtain an API key from TMDB and add it to your environment.
 
-You can check out the [create-t3-app GitHub repository](https://github.com/t3-oss/create-t3-app) — your feedback and contributions are welcome!
+1. Sign up for an account at [TMDB](https://www.themoviedb.org/signup) if you haven't already.
+2. Go to your [account settings](https://www.themoviedb.org/settings/api) and create a new API key.
+3. Create a `.env` file in the root directory of the project.
+4. Add your API key to the `.env` file.
 
-## How do I deploy this?
+**Note:** Never commit your API key to version control. The `.env` file should be kept local and not shared publicly.
 
-Follow our deployment guides for [Vercel](https://create.t3.gg/en/deployment/vercel), [Netlify](https://create.t3.gg/en/deployment/netlify) and [Docker](https://create.t3.gg/en/deployment/docker) for more information.
+## License
+
+This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details.
