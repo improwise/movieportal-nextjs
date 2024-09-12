@@ -41,7 +41,7 @@ export default function Home() {
     <main className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-[#2e026d] to-[#15162c] text-white">
       <div className="container flex max-w-4xl flex-col items-center justify-center gap-12 px-4 py-16">
         <h1 className="text-5xl font-extrabold tracking-tight sm:text-[5rem]">
-          Movie Explorer
+          Movie Portal
         </h1>
         <SearchBox onSearch={handleSearch} initialQuery={query} />
         {isLoading ? (
